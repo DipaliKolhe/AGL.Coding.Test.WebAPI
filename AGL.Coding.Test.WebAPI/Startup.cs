@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace AGL.Coding.Test.WebAPI
 {
@@ -39,6 +40,11 @@ namespace AGL.Coding.Test.WebAPI
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "AGL Coding Test API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +68,9 @@ namespace AGL.Coding.Test.WebAPI
             }
             app.UseCors(options => options.AllowAnyOrigin());
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "AGL Coding Test API"); });
+
         }
     }
 }

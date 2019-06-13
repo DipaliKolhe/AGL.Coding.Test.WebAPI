@@ -19,11 +19,7 @@ namespace AGL.Coding.Test.WebAPI.Controllers
             _petOwnerService = petOwnerService;
         }
 
-        public async Task<ActionResult> Get()
-        {
-            var people = await _petOwnerService.GetAllPetOwnersAsync();
-            return Ok(people);
-        }
+       
 
         [HttpGet]
         public async Task<ActionResult> GetAllPetsByOwnerGender(PetType type)
