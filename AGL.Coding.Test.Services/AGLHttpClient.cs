@@ -14,7 +14,7 @@ namespace AGL.Coding.Test.Services
     {
         private readonly Uri _baseAddress;
 
-        public AGLHttpClient(IOptions<AGLConfig> config)
+        public AGLHttpClient(IOptions<AppSettings> config)
         {
             if (config == null)
             {

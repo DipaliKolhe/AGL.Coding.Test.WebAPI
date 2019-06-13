@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AGL.Coding.Test.Models
 {
-    public class AGLConfig
+    public class AppSettings
     {
         public string WebAPIEndpoint { get; set; }
     }
