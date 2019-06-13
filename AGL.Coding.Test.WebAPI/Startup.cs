@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AGL.Coding.Test.Models;
 using AGL.Coding.Test.Services;
@@ -44,6 +46,11 @@ namespace AGL.Coding.Test.WebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "AGL Coding Test API", Version = "v1" });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+                c.DescribeAllEnumsAsStrings();
             });
         }
 
@@ -69,7 +76,9 @@ namespace AGL.Coding.Test.WebAPI
             app.UseCors(options => options.AllowAnyOrigin());
             app.UseMvc();
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "AGL Coding Test API"); });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "AGL Coding Test API");
+                c.RoutePrefix = string.Empty;
+            });
 
         }
     }
